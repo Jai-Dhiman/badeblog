@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js'
-import { Resend } from 'resend'
 
 export default defineEventHandler(async (event) => {
   const { storyId, message } = await readBody(event)
@@ -10,9 +9,6 @@ export default defineEventHandler(async (event) => {
     'https://pzvwoczyabsniqhqnxnz.supabase.co',
     config.supabaseServiceRoleKey
   )
-  
-  // Initialize Resend
-  const resend = new Resend(config.resendApiKey)
   
   try {
     // Get story data
@@ -38,12 +34,12 @@ export default defineEventHandler(async (event) => {
     // Get frontend URL from runtime config
     const frontendUrl = config.public.frontendUrl
     
-    // Send emails to all subscribers
+    // Send emails to all subscribers using fetch API instead of Resend package
     const emailPromises = subscribers.map(async (subscriber: any) => {
       const unsubscribeUrl = `${frontendUrl}/api/unsubscribe/${subscriber.unsubscribe_token}`
       const storyUrl = `${frontendUrl}/stories/${story.id}`
       
-      return resend.emails.send({
+      const emailPayload = {
         from: 'onboarding@resend.dev', // This works in Resend sandbox mode
         to: subscriber.email,
         subject: `New Story "${story.title}" published by PR Dhiman`,
@@ -102,7 +98,23 @@ export default defineEventHandler(async (event) => {
           </body>
           </html>
         `
+      }
+
+      // Use fetch API to call Resend API directly
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${config.resendApiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(emailPayload)
       })
+
+      if (!response.ok) {
+        throw new Error(`Failed to send email: ${response.statusText}`)
+      }
+
+      return await response.json()
     })
     
     // Wait for all emails to be sent

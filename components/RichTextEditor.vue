@@ -1,22 +1,22 @@
 <template>
-  <QuillEditor
-    ref="quillEditor"
-    :content="localContent"
-    :toolbar="toolbarOptions"
-    contentType="html"
-    theme="snow"
-    class="h-[300px] mb-12 text-lg editor-container"
-    @textChange="handleTextChange"
-    @ready="onEditorReady"
-    @error="handleError"
-  />
+  <client-only>
+    <QuillEditor
+      ref="quillEditor"
+      :content="localContent"
+      :toolbar="toolbarOptions"
+      contentType="html"
+      theme="snow"
+      class="h-[300px] mb-12 text-lg editor-container"
+      @textChange="handleTextChange"
+      @ready="onEditorReady"
+      @error="handleError"
+    />
+  </client-only>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { QuillEditor } from '@vueup/vue-quill'
-import '@vueup/vue-quill/dist/vue-quill.snow.css'
-import type { ApiError } from '~/types'
+import type { ApiError } from '../types'
 
 const props = defineProps<{
   modelValue: string
