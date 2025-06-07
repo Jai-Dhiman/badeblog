@@ -2,7 +2,7 @@ node_modules/
 
 .env
 
-db-backup
+db-backup/
 
 # Nuxt dev/build outputs
 .output
@@ -13,7 +13,7 @@ db-backup
 dist
 
 # Node dependencies
-node_modules
+node_modules/
 
 # Logs
 logs

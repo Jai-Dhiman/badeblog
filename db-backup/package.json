@@ -1,7 +1,0 @@
-{
-  "name": "badeblog",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ]
-}
