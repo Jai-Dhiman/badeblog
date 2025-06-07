@@ -1,0 +1,35 @@
+{
+  "name": "badeblog",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "deploy": "npm run build && wrangler pages deploy dist",
+    "deploy:staging": "npm run build && wrangler pages deploy dist --env staging",
+    "deploy:production": "npm run build && wrangler pages deploy dist --env production"
+  },
+  "dependencies": {
+    "@nuxtjs/supabase": "^1.5.1",
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "@pinia/nuxt": "^0.11.1",
+    "@tailwindcss/typography": "^0.5.16",
+    "@vueup/vue-quill": "^1.2.0",
+    "autoprefixer": "^10.4.21",
+    "axios": "^1.9.0",
+    "jwt-decode": "^4.0.0",
+    "nuxt": "^3.17.5",
+    "pinia": "^3.0.3",
+    "resend": "^4.5.2",
+    "tailwindcss": "^3.4.16",
+    "vue": "^3.5.16",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@types/quill": "^2.0.14",
+    "wrangler": "^3.86.1"
+  }
+}
