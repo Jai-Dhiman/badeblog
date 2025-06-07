@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
   
   // Initialize Supabase client with service role key
   const supabase = createClient(
-    process.env.SUPABASE_URL!,
+    'https://pzvwoczyabsniqhqnxnz.supabase.co',
     config.supabaseServiceRoleKey
   )
   

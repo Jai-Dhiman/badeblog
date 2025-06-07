@@ -8,9 +8,9 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "deploy": "npm run build && wrangler pages deploy dist",
-    "deploy:staging": "npm run build && wrangler pages deploy dist --env staging",
-    "deploy:production": "npm run build && wrangler pages deploy dist --env production"
+    "deploy": "npm run build && npx wrangler --cwd dist/ pages deploy",
+    "deploy:staging": "npm run build && npx wrangler --cwd dist/ pages deploy --env staging",
+    "deploy:production": "npm run build && npx wrangler --cwd dist/ pages deploy --env production"
   },
   "dependencies": {
     "@nuxtjs/supabase": "^1.5.1",
@@ -30,6 +30,6 @@
   },
   "devDependencies": {
     "@types/quill": "^2.0.14",
-    "wrangler": "^3.86.1"
+    "wrangler": "^4.0.0"
   }
 }
