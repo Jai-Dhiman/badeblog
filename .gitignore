@@ -1,3 +1,9 @@
+node_modules/ 
+
+.env
+
+db-backup
+
 # Nuxt dev/build outputs
 .output
 .data
