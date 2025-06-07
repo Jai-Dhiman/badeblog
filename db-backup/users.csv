@@ -1,0 +1,9 @@
+id,name,email,password_digest,created_at,updated_at,role,provider,uid
+4,Jai Dhiman,jaidhiman2000@gmail.com,$2a$12$hLRYMot456rmrnXFGA7equVx0uQHXHBMifR1x4pqUSc0IPRAY.pWu,2024-12-28 05:06:58.98199,2024-12-28 05:06:58.98199,user,google_oauth2,116416444444337051649
+5,Sudhir Kumar,dhimasud@gmail.com,$2a$12$Xy2ys./SXxrmjHpxPWCTrugk6/md2IfR1EB/9MiGlSgRxfebCbGi.,2024-12-28 19:38:42.628247,2024-12-28 19:38:42.628247,user,google_oauth2,109596830786534277753
+1,PR Dhiman,prdhiman@gmail.com,$2a$12$QF9yv.kNbiscaXkiyb5JOedl1wyDAy2mH.hn2bE.Bla7VREehVSb.,2024-11-17 08:47:11,2024-12-28 11:31:07,admin,google_oauth2,108114971550084993161
+3,Nilesh Dhiman,nilesh.dhiman@gmail.com,$2a$12$MrqE18yfzghPejVVn1TY.u0.bmPPlMTkDdco734Vg8smdppmkI.A2,2024-11-18 15:50:10.920287,2024-12-30 15:21:19.594213,user,google_oauth2,118261169830329355325
+6,Subhash C Sharma ,subhash.sharma170@gmail.com,$2a$12$GUxsebtsh2N5baYSMdTDS.oAEEoxYSlPhWIwq8cvf4mfumURjDyli,2024-12-30 16:12:45.910722,2024-12-30 16:12:45.910722,user,,
+7,Vamika Sharma,vamika.sharma7@gmail.com,$2a$12$iJ/IG797Wl4LG4mBTBSdvuRcJjqzkbuGuiJ25/fSEn7RkCekrHw4a,2024-12-30 19:25:47.903019,2024-12-30 19:25:47.903019,user,google_oauth2,111419874129573243907
+8,Kusum Dhiman,dhimankus@gmail.com,$2a$12$PO/9KuuVNqqgnqPnDsmYweWfcQEAY9AeeCO4rMHGJgQ8ee.1MuJJa,2025-01-06 05:37:53.438265,2025-01-06 05:37:53.438265,user,google_oauth2,101502228509524275906
+9,Viraaj Sharma,viraajee@gmail.com,$2a$12$YA7w5ubYb3dT1S/a61Mhxu.tMXkD5RjkYu8x7F7A2ccvXk5yKbhbS,2025-01-12 04:28:40.256325,2025-01-12 04:28:40.256325,user,google_oauth2,102568626938736926498
