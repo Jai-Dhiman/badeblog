@@ -109,8 +109,7 @@
 import { ref, computed, onMounted } from 'vue'
 
 const { getStories, getSubscribers, getRecentComments } = useSupabaseData()
-const { getUserProfile } = useAuth()
-const user = useSupabaseUser()
+const { getUserProfile, user, initAuth } = useAuth()
 const route = useRoute()
 
 const stories = ref<any[]>([])

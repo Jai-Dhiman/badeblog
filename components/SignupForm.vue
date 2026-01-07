@@ -1,11 +1,9 @@
 <template>
   <form @submit.prevent="handleSubmit" class="card max-w-md mx-auto">
-    <!-- Add error alert if there's an error -->
     <div v-if="error" class="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
       {{ error }}
     </div>
 
-    <!-- Add success message -->
     <div v-if="success" class="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
       {{ success }}
     </div>
@@ -41,24 +39,7 @@
     <button type="submit" class="btn btn-primary w-full" :disabled="isLoading">
       {{ isLoading ? 'Signing up...' : 'Sign Up' }}
     </button>
-    
-    <!-- Google OAuth option -->
-    <div class="mt-4">
-      <button
-        type="button"
-        @click="handleGoogleSignup"
-        :disabled="isLoading"
-        class="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors"
-      >
-        <img
-          src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-          alt="Google logo"
-          class="w-5 h-5"
-        />
-        <span class="text-gray-700 font-medium">Sign up with Google</span>
-      </button>
-    </div>
-    
+
     <div class="mt-4 text-center">
       Already have an account?
       <NuxtLink to="/login" class="text-accent hover:text-secondary">Login</NuxtLink>
@@ -67,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-const { signUpWithEmail, signInWithGoogle } = useAuth()
+const { signUpWithEmail, user, initAuth } = useAuth()
 
 const name = ref('')
 const email = ref('')
@@ -77,6 +58,16 @@ const error = ref('')
 const success = ref('')
 const isLoading = ref(false)
 const router = useRouter()
+
+onMounted(async () => {
+  await initAuth()
+})
+
+watch(user, (newUser) => {
+  if (newUser) {
+    router.push('/')
+  }
+}, { immediate: true })
 
 async function handleSubmit() {
   error.value = ''
@@ -96,42 +87,13 @@ async function handleSubmit() {
 
   try {
     await signUpWithEmail(email.value, password.value, name.value)
-    
-    success.value = 'Account created successfully! Please check your email to verify your account.'
-    
-    // Clear form
-    name.value = ''
-    email.value = ''
-    password.value = ''
-    passwordConfirmation.value = ''
-    
-  } catch (err: any) {
+    await router.push('/')
+  } catch (err: unknown) {
     console.error('Registration error:', err)
-    error.value = err.message || 'An error occurred while creating your account'
+    const errorObj = err as { data?: { message?: string }; message?: string }
+    error.value = errorObj.data?.message || errorObj.message || 'An error occurred while creating your account'
   } finally {
     isLoading.value = false
   }
 }
-
-async function handleGoogleSignup() {
-  try {
-    isLoading.value = true
-    error.value = ''
-    
-    await signInWithGoogle()
-    // OAuth redirect will handle the rest
-  } catch (err: any) {
-    console.error('Google signup error:', err)
-    error.value = err.message || 'Failed to sign up with Google'
-    isLoading.value = false
-  }
-}
-
-// Prevent authenticated users from accessing signup page
-const user = useSupabaseUser()
-watch(user, (newUser) => {
-  if (newUser) {
-    router.push('/')
-  }
-}, { immediate: true })
-</script> 
+</script>

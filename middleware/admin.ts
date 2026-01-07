@@ -1,17 +1,16 @@
-export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { user, checkIsAdmin } = useAuth()
+export default defineNuxtRouteMiddleware(async () => {
+  const { user, initAuth, checkIsAdmin } = useAuth()
 
-  // Check if user is authenticated
+  await initAuth()
+
   if (!user.value) {
-    return navigateTo('/auth/register')
+    return navigateTo('/login')
   }
 
-  // Check if user is admin
-  const isAdmin = await checkIsAdmin()
-  if (!isAdmin) {
+  if (!checkIsAdmin()) {
     throw createError({
       statusCode: 403,
-      statusMessage: 'Access denied. Admin access required.'
+      statusMessage: 'Access denied. Admin access required.',
     })
   }
-}) 
+})

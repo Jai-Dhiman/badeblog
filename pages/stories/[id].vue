@@ -113,8 +113,7 @@
 const route = useRoute()
 const router = useRouter()
 const { getStory, getStoryComments, createComment, deleteComment } = useSupabaseData()
-const { getUserProfile } = useAuth()
-const user = useSupabaseUser()
+const { getUserProfile, user, initAuth } = useAuth()
 
 const story = ref<any | null>(null)
 const comments = ref<any[]>([])

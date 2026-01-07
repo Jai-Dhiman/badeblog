@@ -5,3 +5,9 @@ compatibility_flags = ["nodejs_compat_v2"]
 
 [assets]
 directory = "./.output/public"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "badeblog-db"
+database_id = "9a57f07d-df59-4692-9e14-1caf7d9b09a2"
+migrations_dir = "migrations"

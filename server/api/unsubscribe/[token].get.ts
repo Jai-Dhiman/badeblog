@@ -1,42 +1,33 @@
-import { createClient } from '@supabase/supabase-js'
+interface Subscriber {
+  id: number
+}
 
 export default defineEventHandler(async (event) => {
   const token = getRouterParam(event, 'token')
-  const config = useRuntimeConfig()
-  
+
   if (!token) {
     return sendRedirect(event, '/?unsubscribe_error=invalid_token')
   }
-  
-  // Initialize Supabase client with service role key
-  const supabase = createClient(
-    'https://pzvwoczyabsniqhqnxnz.supabase.co',
-    config.supabaseServiceRoleKey
-  )
-  
+
+  const { DB } = event.context.cloudflare.env
+
   try {
-    // Find and delete subscriber by token
-    const { data: subscriber, error: findError } = await supabase
-      .from('subscribers')
-      .select('id')
-      .eq('unsubscribe_token', token)
-      .single()
-    
-    if (findError || !subscriber) {
+    const subscriber = await DB.prepare(
+      'SELECT id FROM subscribers WHERE unsubscribe_token = ?'
+    )
+      .bind(token)
+      .first<Subscriber>()
+
+    if (!subscriber) {
       return sendRedirect(event, '/?unsubscribe_error=invalid_token')
     }
-    
-    const { error: deleteError } = await supabase
-      .from('subscribers')
-      .delete()
-      .eq('unsubscribe_token', token)
-    
-    if (deleteError) {
-      return sendRedirect(event, '/?unsubscribe_error=true')
-    }
-    
+
+    await DB.prepare('DELETE FROM subscribers WHERE unsubscribe_token = ?')
+      .bind(token)
+      .run()
+
     return sendRedirect(event, '/?unsubscribed=true')
   } catch (error) {
     return sendRedirect(event, '/?unsubscribe_error=true')
   }
-}) 
+})

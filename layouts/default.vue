@@ -158,22 +158,12 @@
 </template>
 
 <script setup lang="ts">
-const user = useSupabaseUser()
-const { getUserProfile, signOut } = useAuth()
+const { user, signOut, initAuth } = useAuth()
 
-const userProfile = ref<any>(null)
+const userProfile = computed(() => user.value)
 
-// Get user profile when user is authenticated
-watchEffect(async () => {
-  if (user.value) {
-    try {
-      userProfile.value = await getUserProfile()
-    } catch (error) {
-      console.error('Error fetching user profile:', error)
-    }
-  } else {
-    userProfile.value = null
-  }
+onMounted(async () => {
+  await initAuth()
 })
 
 const logout = async () => {

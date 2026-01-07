@@ -62,8 +62,7 @@ const props = defineProps<{
 }>()
 
 const { getStoriesByCategory } = useSupabaseData()
-const { getUserProfile } = useAuth()
-const user = useSupabaseUser()
+const { getUserProfile, user, initAuth } = useAuth()
 
 const stories = ref<any[]>([])
 const userProfile = ref<any>(null)
